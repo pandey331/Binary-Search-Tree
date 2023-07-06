@@ -1,0 +1,9 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root==nullptr) return nullptr;
+        if(root->val < root->left || root->val >root->right) return false;
+        else return true;
+        
+    }
+};
