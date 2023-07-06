@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+//step to solve
+//1.find inorder
+//2.calculate mid and mke it as root and add all data form left of mid as left node and right side as right node
+//3.make tree
+
+    void inorder(TreeNode* root,vector<int>&inval)
+    {
+        if(root)
+        {
+            inorder(root->left,inval);
+            inval.push_back(root->val);
+            inorder(root->right,inval);
+        }
+    }
+    TreeNode* bbt(int s,int e,vector<int>&inval)
+    {
+            if(s>e) return nullptr;
+            int mid =(s+e)/2; //2
+
+            TreeNode* newroot=new TreeNode (inval[mid]); //2
+            newroot->left=bbt(s,mid-1,inval); //1
+            newroot->right=bbt(mid+1,e,inval); //3,4
+            return newroot;
+        
+    }
+
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int>inval;
+        inorder(root,inval); //1,2,3,4
+        return bbt(0,inval.size()-1,inval);
+
+        
+    }
+};
